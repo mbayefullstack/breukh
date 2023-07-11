@@ -16,11 +16,12 @@ return new class extends Migration
             $table->timestamps();
             $table->string('nom');
             $table->string('prenom');
-            $table->date('date_born');
-            $table->string('lieu_born');
+            $table->date('datedenaissance');
+            $table->string('lieudenaissance');
             $table->enum('sexe', ['masculin', 'feminin']);
             $table->enum('profil', ['interne', 'externe']);
-            $table->boolean('etat');
+            $table->boolean('etat')->default();
+            $table->integer("numero");
         });
     }
 
@@ -32,3 +33,5 @@ return new class extends Migration
         Schema::dropIfExists('eleves');
     }
 };
+
+

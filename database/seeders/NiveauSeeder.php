@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Niveau;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class NiveauSeeder extends Seeder
 {
@@ -16,15 +17,20 @@ class NiveauSeeder extends Seeder
       $niveau = [
         [
             "libelle_niveau" => "primaire",
+            "annee_id" => 1
         ],
         [
-            "libelle_niveau" => "collège"
+            "libelle_niveau" => "collège",
+            "annee_id" => 1
+
         ],
         [
-          "libelle_niveau" => "lycée"
+          "libelle_niveau" => "lycée",
+          "annee_id" => 1
+
       ],
 
       ];
-      \App\Models\Niveau::insert($niveau);
+      Niveau::insert($niveau);
     }
 }

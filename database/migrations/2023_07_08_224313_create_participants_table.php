@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\Annee;
+use App\Models\Event;
+use App\Models\Classe;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 
 return new class extends Migration
 {
@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('niveaux', function (Blueprint $table) {
+        Schema::create('participants', function (Blueprint $table) {
             $table->id();
-            $table->string("libelle_niveau");
-            $table->foreignIdFor(Annee::class)->constrained();
+            $table->foreignIdFor(Classe::class);
+            $table->foreignIdFor(Event::class);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('niveaux');
+        Schema::dropIfExists('participants');
     }
 };

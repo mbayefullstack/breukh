@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+
+use App\Models\Participant;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use App\Models\Event;
 
 class EventController extends Controller
 {
@@ -13,23 +16,30 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEventRequest $request)
+    public function store(Request $request)
     {
-        //
+       return Event::firstOrCreate([
+            "libelle"=>$request->libelle,
+            "date_event"=>$request->date,
+            "user_id"=>$request->user_id
+        ]) ;
+    }
+
+    public function associateEventWithClass(Request $request, $event)
+    {
+        $classeId= $request->classe_id;
+        $participant = new Participant();
+        $participant->classe_id = $classeId;
+        $participant->event_id = $event;
+        $participant->save();
     }
 
     /**
@@ -37,7 +47,6 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
     }
 
     /**

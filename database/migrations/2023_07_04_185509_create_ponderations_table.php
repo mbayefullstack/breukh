@@ -1,12 +1,13 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 use App\Models\Annee;
+use App\Models\Classe;
 use App\Models\Discipline;
 use App\Models\Evaluation;
-use App\Models\Classe;
+use App\Models\ClasseSemestre;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 
 return new class extends Migration
@@ -19,10 +20,11 @@ return new class extends Migration
         Schema::create('ponderations', function (Blueprint $table) {
             $table->id();
             $table->float('maxNotes');
-            $table->foreignIdFor(Classe::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Discipline::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Evaluation::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Annee::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Classe::class)->constrained();
+            $table->foreignIdFor(Discipline::class)->constrained();
+            $table->foreignIdFor(Evaluation::class)->constrained();
+            $table->foreignIdFor(Annee::class)->constrained();
+            $table->foreignIdFor(ClasseSemestre::class)->constrained();
             $table->timestamps();
         });
     }

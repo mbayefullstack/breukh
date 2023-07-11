@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Note;
+use App\Models\Annee;
+use App\Models\Eleve;
+use App\Models\Classe;
+use App\Models\Ponderation;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\NoteResource;
 use App\Http\Requests\StoreEleveRequest;
 use App\Http\Requests\UpdateEleveRequest;
-use Illuminate\Http\Request;
-use App\Models\Eleve;
-use App\Models\Annee;
-use App\Models\Inscription;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class EleveController extends Controller
 {
@@ -21,70 +23,37 @@ class EleveController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreEleveRequest $request)
     {
-        DB::beginTransaction();
+   
 
-        $validatedData = $request->validated();
-
-        $profil = $request->input('profil');
-        $numero = null;
-
-        if ($profil == 'interne') {
-            $numero = Eleve::getNumeroEleve();
-        }
-
-        $dateNaissance = Carbon::createFromFormat('Y-m-d', $validatedData['date_born']);
-
-        $dateLimite = Carbon::now()->subYears(5);
-        if ($dateNaissance->lessThan($dateLimite)) {
-
-            $eleve = Eleve::create([
-                "nom" => $validatedData['nom'],
-                "prenom" => $validatedData['prenom'],
-                "date_born" => $validatedData['date_born'],
-                "lieu_born" => $validatedData['lieu_born'],
-                "sexe" => $validatedData['sexe'],
-                "profil" => $validatedData['profil'],
-                "numero" => $numero
-            ]);
-
-            $annee = Annee::where('statut', 1)->first();
-
- $inscription = Inscription::create([
-                "eleves_id" => $eleve->id,
-                "niveau_id" => $request->input('niveau'),
-                "classe_id" => $request->input('classe'),
-                "annee_id" => $annee->id,
-                "date_inscription" => Carbon::now()
-            ]);
-
-            DB::commit();
-
-            return $inscription;
-        } else {
-            DB::rollBack();
-            return response()->json(['message' => 'La date de naissance doit être antérieure de 5 ans à la date courante.'], 400);
-        }
+    /* 
+    "prenom" : moustapha,
+    "nom" : mbaye,
+    "datedenaissance" : 2000-01-13
+    "lieudeniassance" : dakar,
+    "sexe" : masculin,
+    "profil" : 1
+    "classe" : 2
+    
+    */
+    
+   
     }
+    
 
-    public function exclure(Request $request)
+    public function lookNote($classes, $disciplines)
     {
-        $elevesARenvoyer = $request->input('les_ids');
-        Eleve::whereIn('id', $elevesARenvoyer)->update(['etat' => 0]);
-        return $elevesARenvoyer;
+       $test = Ponderation::where(["classe_id"=>$classes,"discipline_id" => $disciplines])->first();
+        dd($test->notes());
+        
     }
+   
 
     /**
      * Display the specified resource.
@@ -93,6 +62,36 @@ class EleveController extends Controller
     {
         //
     }
+
+
+    public function afficheNote($classes,$disciplines)
+    {
+        $ponderation = Ponderation::where(["discipline_id"=>$disciplines, "classe_id"=>$classes])->first()->id;
+        // dd($ponderation);
+        $note = Note::where('ponderation_id',$ponderation)->get();
+        return NoteResource::collection($note);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -117,6 +116,5 @@ class EleveController extends Controller
     {
         //
     }
-
 }
 

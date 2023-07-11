@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Semestre;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class SemestreSeeder extends Seeder
 {
@@ -43,6 +44,6 @@ class SemestreSeeder extends Seeder
             ],
 
         ];
-        \App\Models\Semestre::insert($semestre);
+        Semestre::insert($semestre);
     }
 }

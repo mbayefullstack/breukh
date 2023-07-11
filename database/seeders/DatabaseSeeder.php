@@ -13,8 +13,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            NiveauSeeder::class,
-            ClasseSeeder::class
+            // NiveauSeeder::class,
+            // ClasseSeeder::class,
+            // InscriptionSeeder::class,
+            // AnneeSeeder::class,
+            // DisciplineSeeder::class,
+            // EleveSeeder::class,
+            EvaluationSeeder::class,
+            // SemestreSeeder::class,
+            // SemestreSeeder::class
 
         ]);
         // \App\Models\User::factory(10)->create();

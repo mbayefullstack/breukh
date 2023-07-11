@@ -22,7 +22,7 @@ class Classe extends Model
         'libelle_classe',
         'niveau_id'
     ];
-    public function inscriptions()
+    public function inscription()
     {
         return $this->hasMany(Inscription::class);
     }

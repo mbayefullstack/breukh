@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Classe;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ClasseSeeder extends Seeder
 {
@@ -19,11 +20,11 @@ class ClasseSeeder extends Seeder
             ], [
                 "libelle_classe" => "CP A",
                 "niveau_id" => "1"
-            ], 
+            ],
             [
                 "libelle_classe" => "6eme A",
                 "niveau_id" => "2"
-            ], 
+            ],
             [
                 "libelle_classe" => "5eme A",
                 "niveau_id" => "2"
@@ -38,6 +39,6 @@ class ClasseSeeder extends Seeder
             ],
 
         ];
-        \App\Models\Classe::insert($classe);
+        Classe::insert($classe);
     }
 }

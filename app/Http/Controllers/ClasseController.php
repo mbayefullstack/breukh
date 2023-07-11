@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Note;
+use App\Models\Eleve;
+use App\Models\Classe;
+use App\Models\Discipline;
+use App\Models\Inscription;
+use App\Models\Ponderation;
+use App\Models\ClasseSemestre;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreClasseRequest;
 use App\Http\Requests\UpdateClasseRequest;
-use Illuminate\Http\Request;
-use App\Models\Classe;
-use App\Models\ClasseSemestre;
-use App\Models\Note;
-use App\Models\Ponderation;
-use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request;
 
 class ClasseController extends Controller
 {
@@ -147,6 +150,36 @@ class ClasseController extends Controller
     public function destroy(Classe $classe)
     {
         //
+    }
+
+    public function getNote(Classe $teuss)
+    {
+           $tab= Ponderation::where([
+                "classe_id" => $teuss->id
+        ])->get();
+            $moustapha = [];
+        // foreach ($tab as $ta) {
+        //     $discipline = Discipline::where([
+        //         "id" => $ta->discipline_id
+        //     ])->get();
+        //     array_push($moustapha, $discipline);
+        // }
+        // foreach($tab as $ta) {
+        //     $inscription = Inscription::where([
+        //         "id" => $ta->el
+        //     ])->get();
+        // }
+           $tab = Inscription::where([
+                "classe_id"=> $teuss->id
+            ])->get();
+            $tableau = [];
+            foreach ($tab as $ta) {
+                $classe = Eleve::where([
+                    "id" => $ta->eleve_id
+                ])->first();
+                array_push($tableau, $classe);
+            }
+            return $tableau;
     }
 }
 

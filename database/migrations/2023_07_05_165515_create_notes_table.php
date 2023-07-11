@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->float('valeur');
-            $table->foreignIdFor(Inscription::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Ponderation::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Inscription::class)->constrained();
+            $table->foreignIdFor(Ponderation::class)->constrained();
+            $table->timestamps();
         });
     }
 

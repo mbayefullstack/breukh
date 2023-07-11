@@ -19,14 +19,14 @@ class Annee extends Model
     protected $fillable = [
         'libelle'
     ];
-    public function inscriptions()
-    {
-        return $this->hasMany(Inscription::class);
-    }
+    // public function inscriptions()
+    // {
+    //     return $this->hasMany(Inscription::class);
+    // }
 
-    public function ponderation()
-    {
-        return $this->hasMany(Ponderation::class);
-    }
+    // public function ponderation()
+    // {
+    //     return $this->hasMany(Ponderation::class);
+    // }
 
 }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('libelle');
             $table->string('date_event');
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });
     }

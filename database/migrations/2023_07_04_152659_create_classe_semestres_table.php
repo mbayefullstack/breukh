@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('classe_semestres', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Classe::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Semestre::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Classe::class)->constrained();
+            $table->foreignIdFor(Semestre::class)->constrained();
             $table->timestamps();
         });
     }

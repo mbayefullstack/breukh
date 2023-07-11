@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Event;
+use App\Models\Classe;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('classe_events', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Classe::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Event::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Classe::class)->constrained();
+            $table->foreignIdFor(Event::class)->constrained();
             $table->timestamps();
         });
     }
